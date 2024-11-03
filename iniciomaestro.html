@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Página del Docente</title>
+    <link rel="stylesheet" href="css/iniciomaestro.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <!-- Barra de Título -->
+    <div class="header-bar">
+        <h1>TECuestionariosWEB</h1>
+        <button class="logout-btn" onclick="location.href='index.html'">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </button>
+    </div>
+
+    <!-- Fondo animado -->
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+
+    <div class="content">
+        <!-- Contenedor Principal -->
+        <div class="container">
+            <!-- Tarjeta Motivacional -->
+            <div class="motivational-card">
+                <h2 id="frase-motivacional">"El éxito es la suma de pequeños esfuerzos repetidos día tras día."</h2>
+            </div>
+
+            <!-- Tarjetas de Información -->
+            <div class="grid-container">
+                <div class="card" onclick="window.location.href='clases.html'">
+                    <h3>Clases</h3>
+                    <p>Gestión de todas tus clases activas.</p>
+                </div>
+                <div class="card" onclick="window.location.href='publicados.html'">
+                    <h3>Exámenes Publicados</h3>
+                    <p>Consulta los cuestionarios ya publicados.</p>
+                </div>
+                <div class="card" onclick="window.location.href='cerrados.html'">
+                    <h3>Exámenes Cerrados</h3>
+                    <p>Acceso a los cuestionarios cerrados.</p>
+                </div>
+                <div class="card" onclick="window.location.href='reportes.html'">
+                    <h3>Datos generales</h3>
+                    <p>Genera reportes detallados de resultados.</p>
+                </div>
+            </div>
+
+            <!-- Barra de Descripción -->
+            <div class="about-bar">
+                <h3>Acerca de Nosotros</h3>
+                <p>Somos una plataforma dedicada a facilitar la gestión de cuestionarios para docentes, optimizando el
+                    proceso de evaluación y resultados.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de carga -->
+    <div id="modal-carga" class="modal-carga">
+        <div class="spinnerContainer">
+            <div class="spinner"></div>
+            <div class="loader">
+                <p>Cargando...</p>
+                <div class="words">
+                    <span class="word">Alumnos</span>
+                    <span class="word">Clases</span>
+                    <span class="word">Examenes</span>
+                    <span class="word">Datos</span>
+                    <span class="word">Chambas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/iniciomaestro.js"></script>
+</body>
+
+</html>

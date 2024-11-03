@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionarios Cerrados</title>
+    <link rel="stylesheet" href="css/cerrados.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body style="background-image: url('imagenes/fondo4.jpg');">
+    <!-- Botón para ocultar/revelar la barra lateral -->
+    <button id="toggle-btn" class="toggle-btn"><i class="fas fa-bars"></i></button>
+
+    <!-- Barra lateral -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+        </div>
+        <ul>
+            <li><a href="iniciomaestro.html"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="clases.html"><i class="fas fa-tasks"></i> Clases</a></li>
+            <li><a href="publicados.html"><i class="fas fa-upload"></i> Publicados</a></li>
+            <li class="active"><a href="cerrados.html"><i class="fas fa-lock"></i> Cerrados</a></li> <!-- Clase activa -->
+            <li><a href="reportes.html"><i class="fas fa-chart-bar"></i> Monitoreo de Actividad</a></li>
+            <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div id="main-content" class="main-content">
+        <div class="container">
+            <h1>Cuestionarios Cerrados</h1>
+            <div id="cerrados-container" class="grid-container">
+                <!-- Aquí se agregarán dinámicamente las tarjetas de cuestionarios cerrados -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de carga -->
+    <div id="modal-carga" class="modal-carga">
+        <div class="spinnerContainer">
+            <div class="spinner"></div>
+            <div class="loader">
+                <p>Cargando...</p>
+                <div class="words">
+                    <span class="word">Alumnos</span>
+                    <span class="word">Clases</span>
+                    <span class="word">Examenes</span>
+                    <span class="word">Datos</span>
+                    <span class="word">Chambas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Archivo JavaScript -->
+    <script type="module" src="js/cerrados.js"></script>
+</body>
+
+</html>

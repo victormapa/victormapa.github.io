@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body style="background-image: url(imagenes/fondo.jpg);">
+    <main>
+        <div class="contenedor__todo">
+            <div class="caja__trasera">
+                <div class="caja__trasera-login">
+                    <h3>¿Ya tienes una cuenta?</h3>
+                    <p>Inicia sesión para entrar en la página</p>
+                    <button id="btn__iniciar-sesion">Iniciar Sesión</button>
+                </div>
+                <div class="caja__trasera-register">
+                    <h3>¿Aún no tienes una cuenta?</h3>
+                    <p>Regístrate para que puedas iniciar sesión</p>
+                    <button id="btn__registrarse">Registrarse</button>
+                </div>
+            </div>
+            <div class="contenedor__login-register">
+                <form action="" class="formulario__login">
+                    <h2>Iniciar Sesión</h2>
+                    <h2>Instituto MausNick</h2>
+                    <input type="text" id="loginEmail" placeholder="Correo Electrónico">
+                    <input type="password" id="loginPassword" placeholder="Contraseña">
+                    <button type="button" id="btnLogin">Entrar</button>
+                    <p id="forgotPassword" style="cursor:pointer; color:blue;">¿Olvidaste tu contraseña?</p>
+                </form>
+                <form action="" class="formulario__register" id="registerForm">
+                    <h2>Registrarse</h2>
+                    <select id="tipoUsuario">
+                        <option value="estudiante">Estudiante</option>
+                        <option value="maestro">Maestro</option>
+                    </select>
+                    <input type="text" id="registerNombre" placeholder="Nombre completo">
+                    <input type="text" id="registerCorreo" placeholder="Correo Electrónico">
+                    <input type="password" id="registerPassword" placeholder="Contraseña">
+                    <input type="password" id="registerClave" placeholder="Clave (solo para maestros)"
+                        style="display:none;">
+                    <button type="button" id="btnRegister">Registrarse</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de carga -->
+    <div id="modal-carga" class="modal-carga">
+        <div class="spinnerContainer">
+            <div class="spinner"></div>
+            <div class="loader">
+                <p>Cargando...</p>
+                <div class="words">
+                    <span class="word">Alumnos</span>
+                    <span class="word">Clases</span>
+                    <span class="word">Examenes</span>
+                    <span class="word">Datos</span>
+                    <span class="word">Chambas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAAovxe4C6FdMbd38vDs_bBEhdCFs1DJ3g",
+            authDomain: "examcreator-635ab.firebaseapp.com",
+            projectId: "examcreator-635ab",
+            storageBucket: "examcreator-635ab.appspot.com",
+            messagingSenderId: "234754721349",
+            appId: "1:234754721349:web:2c93cc00514ac39e83452c",
+            measurementId: "G-XVLSN9V38X"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Inicializar EmailJS con la Public Key
+        emailjs.init("J9sOWAjEzoDb3X8mo");
+
+        // Evento para mostrar u ocultar el campo "Clave"
+        document.getElementById('tipoUsuario').addEventListener('change', () => {
+            const tipoUsuario = document.getElementById('tipoUsuario').value;
+            const claveField = document.getElementById('registerClave');
+
+            if (tipoUsuario === 'maestro') {
+                claveField.style.display = 'block';
+            } else {
+                claveField.style.display = 'none';
+            }
+        });
+
+        // Evento para el registro de usuarios
+        document.getElementById('btnRegister').addEventListener('click', async () => {
+            const nombre = document.getElementById('registerNombre').value.trim();
+            const correo = document.getElementById('registerCorreo').value.trim();
+            const password = document.getElementById('registerPassword').value.trim();
+            const tipoUsuario = document.getElementById('tipoUsuario').value;
+            const clave = document.getElementById('registerClave').value.trim();
+
+            // Validación de campos
+            if (!nombre || !correo || !password) {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            mostrarCarga();
+
+            // Verificar clave para maestros
+            if (tipoUsuario === "maestro" && clave !== "1234") {
+                alert("Clave incorrecta para registro de maestro.");
+                ocultarCarga();
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "usuarios"), {
+                    nombre: nombre,
+                    correo: correo,
+                    password: password,
+                    tipoUsuario: tipoUsuario
+                });
+
+                alert("Registro exitoso.");
+                document.getElementById('registerForm').reset();
+                document.getElementById('registerClave').style.display = 'none';
+
+            } catch (error) {
+                console.error("Error al registrar el usuario: ", error);
+                alert("Hubo un error al registrar el usuario.");
+            } finally {
+                ocultarCarga();
+            }
+        });
+
+        // Evento para iniciar sesión y redirigir según el tipo de usuario
+        document.getElementById('btnLogin').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!email || !password) {
+                alert("Por favor, ingresa tu correo y contraseña.");
+                return;
+            }
+
+            mostrarCarga();
+
+            try {
+                const userQuery = query(collection(db, "usuarios"), where("correo", "==", email), where("password", "==", password));
+                const querySnapshot = await getDocs(userQuery);
+
+                if (!querySnapshot.empty) {
+                    const userData = querySnapshot.docs[0].data();
+                    const tipoUsuario = userData.tipoUsuario;
+
+                    // Guardar nombre, correo y contraseña en localStorage
+                    localStorage.setItem("nombreUsuario", userData.nombre);
+                    localStorage.setItem("correoUsuario", email);
+                    localStorage.setItem("passwordUsuario", userData.password); // Guardar la contraseña
+
+                    // Redirigir según el tipo de usuario
+                    if (tipoUsuario === "estudiante") {
+                        window.location.href = "inicioalumno.html";
+                    } else if (tipoUsuario === "maestro") {
+                        window.location.href = "iniciomaestro.html";
+                    }
+                } else {
+                    alert("Correo o contraseña incorrectos.");
+                }
+            } catch (error) {
+                console.error("Error al iniciar sesión: ", error);
+                alert("Hubo un error al iniciar sesión.");
+            } finally {
+                ocultarCarga();
+            }
+        });
+
+        // Función para enviar correo de recuperación de contraseña
+        async function enviarCorreoRecuperacion(destinatario, password) {
+            const templateParams = {
+                to_email: destinatario,
+                from_name: "Instituto MausNick",
+                message: "Has solicitado recuperar tu contraseña.",
+                password: password
+            };
+
+            emailjs.send("service_3if92pe", "template_slhsacd", templateParams)
+                .then(response => {
+                    alert("Correo de recuperación enviado correctamente.");
+                })
+                .catch(error => {
+                    console.error("Error al enviar el correo: ", error);
+                    alert("Hubo un error al enviar el correo.");
+                });
+        }
+
+        // Función para mostrar el modal de carga
+        function mostrarCarga() {
+            const modal = document.getElementById('modal-carga');
+            if (modal) {
+                modal.style.display = 'flex'; // Mostrar el modal de carga
+            }
+        }
+
+        // Función para ocultar el modal de carga
+        function ocultarCarga() {
+            const modal = document.getElementById('modal-carga');
+            if (modal) {
+                modal.style.display = 'none'; // Ocultar el modal de carga
+            }
+        }
+
+        // Evento para recuperar la contraseña y enviarla por correo
+        document.getElementById('forgotPassword').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value.trim();
+
+            if (!email) {
+                alert("Ingresa tu correo.");
+                return;
+            }
+
+            mostrarCarga();
+
+            try {
+                const userQuery = query(collection(db, "usuarios"), where("correo", "==", email));
+                const querySnapshot = await getDocs(userQuery);
+
+                if (!querySnapshot.empty) {
+                    const userData = querySnapshot.docs[0].data();
+                    const password = userData.password;
+
+                    // Enviar la contraseña al correo
+                    enviarCorreoRecuperacion(email, password);
+                } else {
+                    alert("Correo no registrado.");
+                }
+            } catch (error) {
+                console.error("Error al recuperar la contraseña: ", error);
+                alert("Hubo un error al recuperar la contraseña.");
+            } finally {
+                ocultarCarga();
+            }
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

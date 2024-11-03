@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Generales - Docente</title>
+    <link rel="stylesheet" href="css/reportes2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="header-bar">
+        <h1>Datos Generales</h1>
+        <button class="logout-btn" onclick="location.href='reportes.html'">
+            <i class="fas fa-sign-out-alt"></i> Regresar
+        </button>
+    </div>
+
+    <div class="content">
+        <h2>Cuestionarios Respondidos</h2>
+        <table id="tabla-resultados">
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Fecha de Envío</th>
+                    <th>Intentos</th>
+                    <th>Puntuación</th>
+                    <th>Duración</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="contenedor-resultados">
+                <!-- Las filas de los resultados se agregarán aquí dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para mostrar los detalles -->
+    <div id="modal-analitico" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <div id="detalle-cuestionario">
+                <!-- Los detalles del cuestionario se mostrarán aquí -->
+            </div>
+            <div id="chart-container">
+                <label for="chart-type">Selecciona tipo de gráfico:</label>
+                <select id="chart-type" onchange="cambiarGrafico()">
+                    <option value="pie">Pastel</option>
+                    <option value="bar">Barra</option>
+                    <option value="doughnut">Dona</option>
+                </select>
+                <!-- Span ocultos para almacenar los valores de correctas y total de preguntas -->
+                <span id="correctas" style="display: none;"></span>
+                <span id="total-preguntas" style="display: none;"></span>
+                <canvas id="chartCanvas"></canvas>
+                <br>
+                <div class="container">
+                    <label class="label" onclick="generarPDF()">
+                        <input type="checkbox" class="input" />
+                        <span class="circle">
+                            <svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.5" d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                            </svg>
+                            <div class="square"></div>
+                        </span>
+                        <p class="title">Generar PDF</p>
+                        <p class="title">Listo ✓</p>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal de carga -->
+    <div id="modal-carga" class="modal-carga">
+        <div class="spinnerContainer">
+            <div class="spinner"></div>
+            <div class="loader">
+                <p>Cargando...</p>
+                <div class="words">
+                    <span class="word">Alumnos</span>
+                    <span class="word">Clases</span>
+                    <span class="word">Examenes</span>
+                    <span class="word">Datos</span>
+                    <span class="word">Chambas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/reportes2.js"></script>
+</body>
+
+</html>

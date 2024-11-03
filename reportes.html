@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Generales - Docente</title>
+    <link rel="stylesheet" href="css/reportes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <div class="header-bar">
+        <h1>Datos Generales</h1>
+        <button class="logout-btn" onclick="location.href='iniciomaestro.html'">
+            <i class="fas fa-sign-out-alt"></i> Regresar al menú
+        </button>
+    </div>
+
+    <div class="content">
+        <div id="clases-container">
+            <!-- Contenedores de clases se generarán aquí -->
+        </div>
+    </div>
+
+    <!-- Modal de carga -->
+    <div id="modal-carga" class="modal-carga">
+        <div class="spinnerContainer">
+            <div class="spinner"></div>
+            <div class="loader">
+                <p>Cargando...</p>
+                <div class="words">
+                    <span class="word">Alumnos</span>
+                    <span class="word">Clases</span>
+                    <span class="word">Examenes</span>
+                    <span class="word">Datos</span>
+                    <span class="word">Chambas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/reportes.js"></script>
+</body>
+
+</html>

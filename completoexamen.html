@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡RESULTADOS!</title>
+    <link rel="stylesheet" href="css/completoexamen.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <div class="pyro">
+        <div class="before"></div>
+        <div class="after"></div>
+    </div>
+
+    <div class="container">
+        <h1 id="nombre-usuario"></h1>
+        <p id="puntuacion"></p>
+        <p id="intentos"></p>
+        <p id="tiempo-restante"></p>
+
+        <label for="selector-grafica">Selecciona el tipo de gráfica:</label>
+        <select id="selector-grafica">
+            <option value="pie">Pastel</option>
+            <option value="bar">Barra</option>
+            <option value="doughnut">Dona</option>
+            <option value="line">Línea</option>
+        </select>
+
+        <div class="grafica-container">
+            <canvas id="grafica"></canvas>
+        </div>
+
+        <br>
+        <button class="animated-button" onclick="window.location.href='publicadosalumno.html'">
+            <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+              ></path>
+            </svg>
+            <span class="text">DE ACUERDO</span>
+            <span class="circle"></span>
+            <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+              ></path>
+            </svg>
+          </button>
+    </div>
+    <script src="js/completoexamen.js"></script>
+</body>
+
+</html>

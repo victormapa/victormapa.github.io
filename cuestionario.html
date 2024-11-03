@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionarios</title>
+    <link rel="stylesheet" href="css/cuestionario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body style="background-image: url('imagenes/bluelandsape.jpg');">
+    <!-- Botón para ocultar/revelar la barra lateral -->
+    <button id="toggle-btn" class="toggle-btn"><i class="fas fa-bars"></i></button>
+
+    <!-- Barra lateral -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+        </div>
+        <ul>
+            <li><a href="iniciomaestro.html"><i class="fas fa-home"></i> Inicio</a></li>
+            <li class="active"><a href="clases.html"><i class="fas fa-tasks"></i> Cuestionarios</a></li>
+            <!-- Clase activa -->
+            <li><a href="publicados.html"><i class="fas fa-upload"></i> Publicados</a></li>
+            <li><a href="cerrados.html"><i class="fas fa-lock"></i> Cerrados</a></li>
+            <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div id="main-content" class="main-content">
+        <div class="container">
+            <h1 id="class-name">Exámenes de la Clase: </h1>
+            <button onclick="location.href='clases.html'">
+                <i class="fas fa-sign-out-alt"></i> Regresar a clases
+            </button>
+            <div class="header">
+                <button id="new-test-btn" class="btn">Añadir Cuestionarios</button>
+            </div>
+
+            <!-- Contenedor de tarjetas de cuestionarios -->
+            <div id="materias-container" class="grid-container">
+                <!-- Aquí se agregarán dinámicamente las tarjetas -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar cuestionarios -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Nuevo Cuestionario</h2>
+            <form id="form">
+                <label for="titulo">Titulo:</label>
+                <input type="text" id="titulo" required><br><br>
+
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" required><br><br>
+
+                <button type="button" id="save-btn" class="btn">Guardar</button>
+                <button type="button" id="cancel-btn" class="btn cancel">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para editar cuestionarios -->
+    <div id="modal-edit" class="modal">
+        <div class="modal-content">
+            <span class="close-edit">&times;</span>
+            <h2>Editar Cuestionario</h2>
+            <form id="edit-form">
+                <label for="edit-titulo">Titulo:</label>
+                <input type="text" id="edit-titulo" required><br><br>
+
+                <label for="edit-descripcion">Descripción:</label>
+                <input type="text" id="edit-descripcion" required><br><br>
+
+                <!-- Contenedor principal para agregar preguntas (editables) -->
+                <div id="preguntas-container-edit"></div>
+
+                <!-- Botón para agregar una nueva pregunta -->
+                <button id="agregar-pregunta-btn" class="btn">Agregar Pregunta</button>
+
+                <!-- Botón para guardar todo el cuestionario -->
+                <button id="guardar-cuestionario-btn" type="button">Guardar Cuestionario</button>
+
+                <button type="button" id="edit-cancel-btn" class="btn cancel">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="loading" style="display:none;">Cargando...</div>
+
+    <!-- Modal para solo visualizar cuestionario -->
+    <div id="modal-cuestionario" class="modal">
+        <div class="modal-content">
+            <span class="close-cuestionario">&times;</span>
+            <h2>Cuestionario</h2>
+            <!-- Contenedor para visualizar preguntas con respuestas -->
+            <div id="preguntas-container-view"></div>
+            <button class="btn" id="configurar-cuestionarios-btn">Publicar Nuevo Cuestionario</button>
+        </div>
+    </div>
+
+    <!-- Modal para configurar los parámetros del cuestionario -->
+    <div id="modal-configurar-cuestionarios" class="modal">
+        <div class="modal-content">
+            <span class="close-configurar-examen">&times;</span>
+            <h2>Configurar Examen</h2>
+            <form id="form-configurar-examen">
+                <label for="fecha-inicio">Fecha de Inicio:</label>
+                <input type="date" id="fecha-inicio" required><br><br>
+
+                <label for="fecha-fin">Fecha de Finalización:</label>
+                <input type="date" id="fecha-fin" required><br><br>
+
+                <label for="duracion-horas">Duración (Horas):</label>
+                <input type="number" id="duracion-horas" min="0" required><br><br>
+
+                <label for="duracion-minutos">Duración (Minutos):</label>
+                <input type="number" id="duracion-minutos" min="0" max="59" required><br><br>
+
+                <label for="intentos">Número de Intentos:</label>
+                <select id="intentos" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select><br><br>
+
+                <button type="button" id="guardar-configuracion-examen" class="btn">Guardar Configuración</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de carga -->
+    <div id="modal-carga" class="modal-carga">
+        <div class="spinnerContainer">
+            <div class="spinner"></div>
+            <div class="loader">
+                <p>Cargando...</p>
+                <div class="words">
+                    <span class="word">Alumnos</span>
+                    <span class="word">Clases</span>
+                    <span class="word">Examenes</span>
+                    <span class="word">Datos</span>
+                    <span class="word">Chambas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Archivo JavaScript -->
+    <script type="module" src="js/cuestionario.js"></script>
+</body>
+
+</html>

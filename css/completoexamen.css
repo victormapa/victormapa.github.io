@@ -1,0 +1,234 @@
+body {
+  font-family: Arial, sans-serif;
+  display: contents;
+  overflow-y: auto;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  background: #ff8716;
+  height: 100vh;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  padding: 30px;
+  width: 60%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.pyro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  /* Para que no interfiera con el contenedor */
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: black;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 10px 0;
+}
+
+#selector-grafica {
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.grafica-container {
+  margin-top: 30px;
+}
+
+canvas {
+  max-width: 400px;
+  /* Tamaño máximo de la gráfica */
+  max-height: 400px;
+  margin: 20px auto;
+  /* Centrar la gráfica */
+  width: 100% !important;
+  height: auto !important;
+}
+
+.pyro>.before,
+.pyro>.after {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  box-shadow: 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff, 0 0 #fff;
+  animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+}
+
+.pyro>.after {
+  animation-delay: 1.25s, 1.25s, 1.25s;
+  animation-duration: 1.25s, 1.25s, 6.25s;
+}
+
+@keyframes bang {
+  to {
+    box-shadow: -53px -176.3333333333px #00ff2b, 17px 60.6666666667px #7700ff, -113px -19.3333333333px #ee00ff, 55px -87.3333333333px #37ff00, -135px -9.3333333333px #ff00e6, 53px -240.3333333333px #ff4000, 19px 35.6666666667px #e600ff, -19px -152.3333333333px #00ffdd, -105px -75.3333333333px #ffd500, -40px -150.3333333333px #00ff62, -136px 41.6666666667px #cc00ff, -19px -233.3333333333px #ff5100, -91px -220.3333333333px #2b00ff, -176px -140.3333333333px #ff00bb, -177px -288.3333333333px #ff6a00, -230px -69.3333333333px #59ff00, 211px 28.6666666667px #0062ff, 240px -177.3333333333px #ae00ff, -21px -62.3333333333px #2fff00, -57px -191.3333333333px #3700ff, -103px -244.3333333333px #b700ff, 80px -273.3333333333px #55ff00, 11px -86.3333333333px #00ffae, -160px -93.3333333333px #ff7b00, 49px -226.3333333333px #22ff00, 203px 60.6666666667px #8cff00, 126px -74.3333333333px #0009ff, -156px -228.3333333333px #00e6ff, -192px -75.3333333333px #88ff00, 139px -175.3333333333px #5100ff, -165px -290.3333333333px aqua, -242px -62.3333333333px #ff5e00, -32px 29.6666666667px #00ffd0, 181px -210.3333333333px #00ffd9, 35px -33.3333333333px #ff0059, -226px -324.3333333333px #e600ff, -97px -135.3333333333px #00ff44, -173px -253.3333333333px #9100ff, -37px -240.3333333333px #ff006f, 54px -220.3333333333px #00ff7b, -240px -47.3333333333px #ff9100, 234px -330.3333333333px #00bbff, -97px -33.3333333333px #00ff95, -30px -75.3333333333px #6fff00, -224px -98.3333333333px #b300ff, 222px -311.3333333333px #00ff91, 133px -155.3333333333px #0048ff, -183px 30.6666666667px #ff004d, -10px -211.3333333333px lime, 9px -187.3333333333px #ff0099, 148px -157.3333333333px #a2ff00, 210px -75.3333333333px #ff1e00, -140px -48.3333333333px #00ff11, -153px -116.3333333333px #bfff00, -119px -274.3333333333px #0009ff, -223px -16.3333333333px #00ff8c, 193px -56.3333333333px #0400ff, 56px -191.3333333333px #00ff48, -68px -254.3333333333px #fffb00, 34px -106.3333333333px #4dff00, -206px -308.3333333333px #ff0066;
+  }
+}
+
+@keyframes gravity {
+  to {
+    transform: translateY(200px);
+    -moz-transform: translateY(200px);
+    -webkit-transform: translateY(200px);
+    -o-transform: translateY(200px);
+    -ms-transform: translateY(200px);
+    opacity: 0;
+  }
+}
+
+@keyframes position {
+
+  0%,
+  19.9% {
+    margin-top: 10%;
+    margin-left: 40%;
+  }
+
+  20%,
+  39.9% {
+    margin-top: 40%;
+    margin-left: 30%;
+  }
+
+  40%,
+  59.9% {
+    margin-top: 20%;
+    margin-left: 70%;
+  }
+
+  60%,
+  79.9% {
+    margin-top: 30%;
+    margin-left: 20%;
+  }
+
+  80%,
+  99.9% {
+    margin-top: 30%;
+    margin-left: 80%;
+  }
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; /* Puedes ajustar el margen según tus necesidades */
+}
+
+/* From Uiverse.io by gharsh11032000 */ 
+.animated-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 4px;
+  padding: 16px 36px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 16px;
+  background-color: inherit;
+  border-radius: 100px;
+  font-weight: 600;
+  color: black;
+  box-shadow: 0 0 0 2px black;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: black;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .arr-1 {
+  right: 16px;
+}
+
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: #ff8716;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: #212121;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: black;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px #ff8716;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
+}
+
+
+/*# sourceMappingURL=completoexamen.css.map */

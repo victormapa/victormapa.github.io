@@ -1,0 +1,576 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: margin-left 0.3s;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    padding-top: 20px;
+    overflow-x: hidden;
+    transition: width 0.3s ease;
+    color: white;
+    z-index: 1000;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 15px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li.active a {
+    background-color: #1e88e5; /* Azul */
+    color: white;
+    font-weight: bold;
+}
+
+.sidebar ul li a:hover {
+    background-color: #575757; /* Gris oscuro */
+}
+
+.sidebar ul li:hover {
+    background-color: #575757;
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+h1 {
+    color: #ffffff;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Button Styles */
+.btn {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #1660ff;
+}
+
+/* Button for 'Regresar a clases' */
+button[onclick] {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+button[onclick] i {
+    margin-right: 8px;
+}
+
+button[onclick]:hover {
+    background-color: #f44336;
+}
+
+/* Grid and Card Styles */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f4f4f4;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card h3 {
+    font-size: 18px;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.card p {
+    margin: 0;
+    color: #666;
+}
+
+/* Actions (Buttons) Styles */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.actions button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.actions button i {
+    font-size: 1.5em;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.actions button.view-btn:hover i {
+    color: #1e88e5;
+}
+
+.actions button.edit-btn:hover i {
+    color: #4caf50;
+}
+
+.actions button.delete-btn:hover i {
+    color: #f44336;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000; /* Asegurarte de que el modal esté encima de otros elementos */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    padding-top: auto;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.modal .modal-content {
+    width: 50%;
+    max-width: 600px;
+    max-height: 80vh; /* Limitar la altura del modal al 80% de la ventana */
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Habilitar desplazamiento vertical */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    width: 40%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover {
+    color: black;
+    cursor: pointer;
+}
+
+/* Question Form Styles */
+.pregunta-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.eliminar-pregunta {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 3px 7px;
+    font-size: 12px;
+    border-radius: 50%;
+}
+
+.opciones-container {
+    margin-top: 10px;
+}
+
+.opciones-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.opciones-container input[type="text"] {
+    width: 80%;
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.opciones-container input[type="radio"],
+.opciones-container input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+#guardar-cuestionario-btn,
+#agregar-pregunta-btn {
+    margin-top: 15px;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#guardar-cuestionario-btn:hover,
+#agregar-pregunta-btn:hover {
+    background-color: #1660ff;
+}
+
+/* Header button styling */
+.header button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.header button i {
+    margin-right: 8px;
+}
+
+.header button:hover {
+    background-color: #1660ff;
+}
+
+/* Modal Centering */
+#modal-cuestionario.show,
+#modal-edit.show,
+#modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+#modal-cuestionario .modal-content,
+#modal-edit .modal-content,
+#modal .modal-content {
+    width: 50%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Estilos para el modal de configuración de cuestionarios */
+#modal-configurar-cuestionarios {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    padding-top: auto;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+#modal-configurar-cuestionarios.show {
+    display: flex;
+    opacity: 1;
+}
+
+#modal-configurar-cuestionarios .modal-content {
+    width: 60%;
+    max-width: 700px;
+    max-height: 80vh;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#modal-configurar-cuestionarios .close-configurar {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#modal-configurar-cuestionarios .close-configurar:hover {
+    color: black;
+}
+
+#modal-configurar-cuestionarios h2 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Estilos para los elementos dentro del contenedor de lista de cuestionarios */
+#lista-cuestionarios-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+#lista-cuestionarios-container .quiz-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+#lista-cuestionarios-container .quiz-item:hover {
+    transform: scale(1.02);
+}
+
+#lista-cuestionarios-container .quiz-item h3 {
+    font-size: 20px;
+    color: #333;
+    margin: 0 0 5px;
+}
+
+#lista-cuestionarios-container .quiz-item p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.modal-carga {
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Fondo semitransparente */
+    z-index: 9999;
+    /* Asegura que esté encima de todos los elementos */
+    align-items: center;
+    justify-content: center;
+}
+
+.spinnerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.spinner {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    border: 4px solid #0000;
+    border-radius: 50%;
+    border-right-color: #299fff;
+    animation: tri-spinner 1s infinite linear;
+}
+
+.spinner::before,
+.spinner::after {
+    content: "";
+    grid-area: 1/1;
+    margin: 2px;
+    border: inherit;
+    border-radius: 50%;
+    animation: tri-spinner 2s infinite;
+}
+
+.spinner::after {
+    margin: 8px;
+    animation-duration: 3s;
+}
+
+@keyframes tri-spinner {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+.loader {
+    color: #4a4a4a;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 25px;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 40px;
+    padding: 10px 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 8px;
+}
+
+.words {
+    overflow: hidden;
+}
+
+.word {
+    display: block;
+    height: 100%;
+    padding-left: 6px;
+    color: #003366;
+    animation: cycle-words 5s infinite;
+}
+
+@keyframes cycle-words {
+    10% {
+        -webkit-transform: translateY(-105%);
+        transform: translateY(-105%);
+    }
+
+    25% {
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+    }
+
+    35% {
+        -webkit-transform: translateY(-205%);
+        transform: translateY(-205%);
+    }
+
+    50% {
+        -webkit-transform: translateY(-200%);
+        transform: translateY(-200%);
+    }
+
+    60% {
+        -webkit-transform: translateY(-305%);
+        transform: translateY(-305%);
+    }
+
+    75% {
+        -webkit-transform: translateY(-300%);
+        transform: translateY(-300%);
+    }
+
+    85% {
+        -webkit-transform: translateY(-405%);
+        transform: translateY(-405%);
+    }
+
+    100% {
+        -webkit-transform: translateY(-400%);
+        transform: translateY(-400%);
+    }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página del Alumno</title>
+    <link rel="stylesheet" href="css/clasesalumnos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body style="background-image: url('imagenes/orangelandscape.jpg');">
+    <!-- Botón para ocultar/revelar la barra lateral -->
+    <button id="toggle-btn" class="toggle-btn"><i class="fas fa-bars"></i></button>
+
+    <!-- Barra lateral -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header"></div>
+        <ul>
+            <li><a href="inicioalumno.html"><i class="fas fa-home"></i> Inicio</a></li>
+            <li class="active"><a href="clases.html"><i class="fas fa-tasks"></i> Clases</a></li> <!-- Clase activa -->
+            <li><a href="publicadosalumno.html"><i class="fas fa-upload"></i> Publicados</a></li>
+            <li><a href="cerradosalumno.html"><i class="fas fa-lock"></i> Cerrados</a></li>
+            <li><a href="index.html" id="logout-btn" onclick="event.preventDefault(); desactivarUsuario();"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div id="main-content" class="main-content">
+        <div class="container">
+            <h1>Clases</h1>
+            <div class="header">
+                <input type="text" id="registro-clase" placeholder="Ingresa Clave o nombre de la clase a registrar" class="input-text">
+                <button id="register-class-btn" class="btn">Registrar Clase</button>
+            </div>
+
+            <!-- Contenedor de tarjetas de clases -->
+            <div id="materias-container" class="grid-container">
+                <!-- Aquí se agregarán dinámicamente las tarjetas -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Archivo JavaScript -->
+    <script type="module" src="js/clasesalumnos.js"></script>
+</body>
+
+</html>

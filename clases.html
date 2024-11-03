@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página del Docente</title>
+    <link rel="stylesheet" href="css/clases.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body style="background-image: url('imagenes/fondoazul.jpg');">
+    <!-- Botón para ocultar/revelar la barra lateral -->
+    <button id="toggle-btn" class="toggle-btn"><i class="fas fa-bars"></i></button>
+
+    <!-- Barra lateral -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+        </div>
+        <ul>
+            <li><a href="iniciomaestro.html"><i class="fas fa-home"></i> Inicio</a></li>
+            <li class="active"><a href="clases.html"><i class="fas fa-tasks"></i> Clases</a></li> <!-- Clase activa -->
+            <li><a href="publicados.html"><i class="fas fa-upload"></i> Publicados</a></li>
+            <li><a href="cerrados.html"><i class="fas fa-lock"></i> Cerrados</a></li>
+            <li><a href="index.html"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+    <div id="main-content" class="main-content">
+        <div class="container">
+            <h1>Clases</h1>
+            <div class="header">
+                <button id="new-test-btn" class="btn">Crear Clase</button>
+            </div>
+
+            <!-- Contenedor de tarjetas de clases -->
+            <div id="materias-container" class="grid-container">
+                <!-- Aquí se agregarán dinámicamente las tarjetas -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para agregar clases -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Nueva Clase</h2>
+            <form id="form">
+
+                <label for="clave">Genera tu clave de Clase:</label>
+                <button id="generar-clave-btn"><i class="fas fa-redo"></i></button>
+                <input type="text" id="clave" readonly>
+                <br><br>
+
+                <label for="nombre">Nombre de la Clase:</label>
+                <input type="text" id="nombre" required><br><br>
+
+                <label for="grupo">Grupo:</label>
+                <input type="text" id="grupo" required><br><br>
+
+                <button type="button" id="save-btn" class="btn">Guardar</button>
+                <button type="button" id="cancel-btn" class="btn cancel">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para editar clases -->
+    <div id="modal-edit" class="modal">
+        <div class="modal-content">
+            <span class="close-edit">&times;</span>
+            <h2>Editar Clase</h2>
+            <form id="edit-form">
+                <label for="edit-nombre">Nombre de la Clase:</label>
+                <input type="text" id="edit-nombre" required><br><br>
+
+                <label for="edit-grupo">Grupo:</label>
+                <input type="text" id="edit-grupo" required><br><br>
+
+                <button type="button" id="edit-save-btn" class="btn">Guardar Cambios</button>
+                <button type="button" id="edit-cancel-btn" class="btn cancel">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de carga -->
+    <div id="modal-carga" class="modal-carga">
+        <div class="spinnerContainer">
+            <div class="spinner"></div>
+            <div class="loader">
+                <p>Cargando...</p>
+                <div class="words">
+                    <span class="word">Alumnos</span>
+                    <span class="word">Clases</span>
+                    <span class="word">Examenes</span>
+                    <span class="word">Datos</span>
+                    <span class="word">Chambas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Archivo JavaScript -->
+    <script type="module" src="js/clases.js"></script>
+</body>
+
+</html>

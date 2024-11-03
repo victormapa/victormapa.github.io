@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen</title>
+    <link rel="stylesheet" href="css/examen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-wrapper">
+        <section>
+            <div class='air air1'></div>
+            <div class='air air2'></div>
+            <div class='air air3'></div>
+            <div class='air air4'></div>
+        </section>
+    </div>
+
+    <!-- Contenedor del examen -->
+    <div class="examen-container">
+        <header class="header-examen">
+            <h1>Examen: <span id="titulo-examen"></span></h1>
+            <p><strong>Tiempo restante:</strong> <span id="timer"></span></p>
+            <p><strong>Intentos restantes:</strong> <span id="intentos"></span></p>
+        </header>
+
+        <!-- Contenedor de preguntas -->
+        <div id="preguntas-container" class="preguntas-container">
+            <!-- Aquí se cargarán dinámicamente las preguntas -->
+        </div>
+
+        <!-- Botón para enviar el examen -->
+        <div class="submit-container">
+            <button id="btn-enviar-examen" class="btn">Enviar Examen</button>
+        </div>
+    </div>
+
+    <!-- Archivo JavaScript -->
+    <script type="module" src="js/examen.js"></script>
+</body>
+
+</html>
