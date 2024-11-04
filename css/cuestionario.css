@@ -533,6 +533,13 @@ button[onclick]:hover {
     animation: cycle-words 5s infinite;
 }
 
+button.disabled {
+    background-color: #ccc; /* Color gris */
+    cursor: not-allowed; /* Cursor de no permitido */
+    opacity: 0.6; /* Hacer que el botón parezca deshabilitado */
+    pointer-events: none; /* Impedir clics */
+}
+
 @keyframes cycle-words {
     10% {
         -webkit-transform: translateY(-105%);
