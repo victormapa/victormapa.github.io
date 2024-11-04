@@ -109,33 +109,61 @@ async function cargarCuestionarios() {
     }
 }
 
-function abrirModalEdicion(quizId, titulo, descripcion) {
+async function abrirModalEdicion(quizId, titulo, descripcion) {
     currentQuizId = quizId; // Asignar el quizId al currentQuizId
     const modalEdit = document.getElementById('modal-edit');
-    modalEdit.classList.add('show');
-    document.getElementById('preguntas-container-edit').innerHTML = ''; // Limpiar contenedor de preguntas
+    
+    // Mostrar modal de carga mientras se verifica el estado
+    mostrarCarga();
 
-    // Rellenar los campos de edición con los datos actuales
-    document.getElementById('edit-titulo').value = titulo;
-    document.getElementById('edit-descripcion').value = descripcion;
+    try {
+        // Obtener el cuestionario desde Firestore
+        const cuestionarioRef = doc(db, "cuestionarios", quizId);
+        const cuestionarioSnap = await getDoc(cuestionarioRef);
 
-    // Mostrar las preguntas existentes en el modal de edición
-    mostrarPreguntasModalEditable(quizId);
+        if (cuestionarioSnap.exists()) {
+            const data = cuestionarioSnap.data();
 
-    // Asociar el evento "Agregar Pregunta" al botón en el modal de edición
-    document.getElementById('agregar-pregunta-btn').onclick = crearPregunta;
+            // Verificar el estado del cuestionario
+            if (data.estado === 'publicado' || data.estado === 'cerrado') {
+                alert("Ya no puedes editar este cuestionario, ya ha sido publicado.");
+                ocultarCarga(); // Ocultar modal de carga si no se puede editar
+                return; // Salir de la función
+            }
 
-    // Guardar cambios al cuestionario
-    document.getElementById('guardar-cuestionario-btn').onclick = async (event) => {
-        event.preventDefault();
-        if (currentQuizId) {
-            console.log("Guardando cambios del cuestionario con ID:", currentQuizId);
-            await guardarEdicionCuestionario(currentQuizId);
+            // Si el cuestionario no está publicado ni cerrado, abrir el modal de edición
+            modalEdit.classList.add('show');
+            document.getElementById('preguntas-container-edit').innerHTML = ''; // Limpiar contenedor de preguntas
+
+            // Rellenar los campos de edición con los datos actuales
+            document.getElementById('edit-titulo').value = titulo;
+            document.getElementById('edit-descripcion').value = descripcion;
+
+            // Mostrar las preguntas existentes en el modal de edición
+            mostrarPreguntasModalEditable(quizId);
+
+            // Asociar el evento "Agregar Pregunta" al botón en el modal de edición
+            document.getElementById('agregar-pregunta-btn').onclick = crearPregunta;
+
+            // Guardar cambios al cuestionario
+            document.getElementById('guardar-cuestionario-btn').onclick = async (event) => {
+                event.preventDefault();
+                if (currentQuizId) {
+                    console.log("Guardando cambios del cuestionario con ID:", currentQuizId);
+                    await guardarEdicionCuestionario(currentQuizId);
+                } else {
+                    console.error("Error: currentQuizId no está definido.");
+                    alert("Error: no se puede guardar el cuestionario. Inténtalo nuevamente.");
+                }
+            };
         } else {
-            console.error("Error: currentQuizId no está definido.");
-            alert("Error: no se puede guardar el cuestionario. Inténtalo nuevamente.");
+            console.error("No se encontró el cuestionario.");
         }
-    };
+    } catch (error) {
+        console.error("Error al abrir el modal de edición:", error);
+    } finally {
+        ocultarCarga(); // Asegurar que el modal de carga siempre se oculte
+    }
 }
 
 async function mostrarPreguntasModalEditable(quizId) {
