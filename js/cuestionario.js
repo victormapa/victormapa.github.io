@@ -207,11 +207,26 @@ async function abrirModalCuestionarioPorClaveYDescripcion(claseClave, descripcio
 
         if (!querySnapshot.empty) {
             let preguntasEncontradas = false; // Variable para verificar si se encontraron preguntas
+            const configurarBtn = document.getElementById('configurar-cuestionarios-btn');
 
             querySnapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const quizId = docSnap.id; // Asigna el ID al currentQuizId
                 currentQuizId = quizId;
+
+                // Verificar si el cuestionario está publicado o cerrado
+                if (data.estado === "publicado" || data.estado === "cerrado") {
+                    alert("El cuestionario ya está publicado o cerrado y no se puede configurar.");
+                    if (configurarBtn) {
+                        configurarBtn.disabled = true; // Deshabilitar el botón
+                        configurarBtn.classList.add('disabled'); // Agregar clase para estilos adicionales, si es necesario
+                    }
+                } else {
+                    if (configurarBtn) {
+                        configurarBtn.disabled = false; // Habilitar el botón si el estado permite configuraciones
+                        configurarBtn.classList.remove('disabled');
+                    }
+                }
 
                 const preguntas = data.preguntas || [];
                 if (preguntas.length > 0) {
@@ -232,11 +247,9 @@ async function abrirModalCuestionarioPorClaveYDescripcion(claseClave, descripcio
 
             if (!preguntasEncontradas) {
                 alert("No hay preguntas en el cuestionario aún.");
-                modal.classList.remove('show'); // Cerrar el modal si no se encontraron preguntas
             }
         } else {
-            alert("No hay preguntas en el cuestionario aún.");
-            modal.classList.remove('show'); // Cerrar el modal si no hay datos
+            alert("No se encontraron datos para este cuestionario.");
         }
     } catch (error) {
         console.error("Error al cargar las preguntas:", error);
@@ -457,10 +470,41 @@ document.getElementById('guardar-cuestionario-btn').onclick = async () => {
 
 // Función para guardar la edición del cuestionario junto con las preguntas
 async function guardarEdicionCuestionario(quizId) {
-    const nuevoTitulo = document.getElementById('edit-titulo').value;
-    const nuevaDescripcion = document.getElementById('edit-descripcion').value;
+    const nuevoTitulo = document.getElementById('edit-titulo').value.trim();
+    const nuevaDescripcion = document.getElementById('edit-descripcion').value.trim();
     const preguntas = obtenerPreguntas(); // Obtener todas las preguntas visibles en el DOM
 
+    // Verificar que no haya campos vacíos en el título y la descripción
+    if (!nuevoTitulo || !nuevaDescripcion) {
+        alert("Por favor, completa el título y la descripción.");
+        return;
+    }
+
+    // Verificar que todas las preguntas y sus opciones sean válidas
+    let preguntasValidas = true;
+    preguntas.forEach((pregunta, index) => {
+        if (!pregunta.texto.trim()) {
+            alert(`La pregunta ${index + 1} está vacía. Completa el campo de la pregunta.`);
+            preguntasValidas = false;
+            return;
+        }
+        if (pregunta.opciones.length < 2 || pregunta.opciones.some(opcion => !opcion.texto.trim())) {
+            alert(`La pregunta ${index + 1} debe tener al menos 2 opciones completas y no vacías.`);
+            preguntasValidas = false;
+            return;
+        }
+        if (!pregunta.opciones.some(opcion => opcion.correcta)) {
+            alert(`La pregunta ${index + 1} debe tener al menos una opción marcada como correcta.`);
+            preguntasValidas = false;
+            return;
+        }
+    });
+
+    if (!preguntasValidas) {
+        return;
+    }
+
+    // Proceder a guardar si todo es válido
     if (nuevoTitulo && nuevaDescripcion && preguntas.length >= 0) {
         try {
             const cuestionarioRef = doc(db, "cuestionarios", quizId);
@@ -480,6 +524,7 @@ async function guardarEdicionCuestionario(quizId) {
             preguntasAEliminar = [];
         } catch (error) {
             console.error("Error al actualizar el cuestionario:", error);
+            alert("Hubo un error al actualizar el cuestionario. Inténtalo de nuevo.");
         }
     } else {
         alert("Por favor, completa todos los campos y añade al menos una pregunta.");
@@ -617,6 +662,20 @@ async function guardarConfiguracionExamen() {
 
     if (!currentQuizId) {
         alert("Error: No se ha seleccionado un cuestionario para configurar.");
+        ocultarCarga();
+        return;
+    }
+
+    // Validar que la duración esté dentro del rango permitido
+    if (duracionHoras < 0 || duracionHoras > 4) {
+        alert("La duración en horas debe estar entre 0 y 4.");
+        ocultarCarga();
+        return;
+    }
+
+    // Validar los minutos: deben ser entre 5 y 59 si las horas son 0; si hay horas, los minutos pueden ser 0.
+    if ((duracionHoras === 0 && (duracionMinutos < 5 || duracionMinutos > 59)) || (duracionHoras > 0 && (duracionMinutos < 0 || duracionMinutos > 59))) {
+        alert("La duración en minutos debe estar entre 5 y 59 si las horas son 0, o de 0 a 59 si hay horas.");
         ocultarCarga();
         return;
     }
@@ -789,3 +848,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
+
