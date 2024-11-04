@@ -171,38 +171,49 @@ async function abrirModalCuestionarioPorClaveYDescripcion(claseClave, descripcio
     modal.classList.add('show');
     document.getElementById('preguntas-container-view').innerHTML = ''; // Limpiar contenedor de preguntas
     mostrarCarga();
+
     try {
         const cuestionariosRef = collection(db, "cuestionarios");
         const q = query(cuestionariosRef, where("claseClave", "==", claseClave), where("descripcion", "==", descripcion));
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
+            let preguntasEncontradas = false; // Variable para verificar si se encontraron preguntas
+
             querySnapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const quizId = docSnap.id; // Asigna el ID al currentQuizId
                 currentQuizId = quizId;
-                
+
                 const preguntas = data.preguntas || [];
-                preguntas.forEach((pregunta) => {
-                    const preguntaElement = document.createElement('div');
-                    preguntaElement.className = 'pregunta-container';
-                    preguntaElement.innerHTML = `
-                        <h4>${pregunta.texto}</h4>
-                        <ul>
-                            ${pregunta.opciones.map(opcion => `<li>${opcion.texto}</li>`).join('')}
-                        </ul>
-                    `;
-                    document.getElementById('preguntas-container-view').appendChild(preguntaElement);
-                    ocultarCarga();
-                });
+                if (preguntas.length > 0) {
+                    preguntasEncontradas = true;
+                    preguntas.forEach((pregunta) => {
+                        const preguntaElement = document.createElement('div');
+                        preguntaElement.className = 'pregunta-container';
+                        preguntaElement.innerHTML = `
+                            <h4>${pregunta.texto}</h4>
+                            <ul>
+                                ${pregunta.opciones.map(opcion => `<li>${opcion.texto}</li>`).join('')}
+                            </ul>
+                        `;
+                        document.getElementById('preguntas-container-view').appendChild(preguntaElement);
+                    });
+                }
             });
+
+            if (!preguntasEncontradas) {
+                alert("No hay preguntas en el cuestionario aún.");
+                modal.classList.remove('show'); // Cerrar el modal si no se encontraron preguntas
+            }
         } else {
-            console.log("No se encontraron datos para este cuestionario.");
-            ocultarCarga();
+            alert("No hay preguntas en el cuestionario aún.");
+            modal.classList.remove('show'); // Cerrar el modal si no hay datos
         }
     } catch (error) {
         console.error("Error al cargar las preguntas:", error);
-        ocultarCarga();
+    } finally {
+        ocultarCarga(); // Asegurarse de ocultar el modal de carga en cualquier caso
     }
 }
 
