@@ -1,3 +1,5 @@
+
+
 * {
     margin: 0;
     padding: 0;
@@ -144,9 +146,20 @@ main {
 
 
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 600px) {
+
+    body {
+        background-attachment: scroll;
+        background-size: cover;
+    }
+
+    .contenedor__todo {
+        max-width: 90%;
+        padding: 10px;
+    }
 
     main {
+        padding: 10px;
         margin-top: 50px;
     }
 
@@ -154,7 +167,9 @@ main {
         max-width: 350px;
         height: 300px;
         flex-direction: column;
-        margin: auto;
+        margin: 20px 10px;
+        padding: 0 10px;
+        font-size: 20px;
     }
 
     .caja__trasera div {
@@ -170,6 +185,12 @@ main {
 
     .contenedor__login-register form {
         position: relative;
+        padding: 20px 10px;
+    }
+
+    .caja__trasera button{
+        padding: 8px 20px;
+        font-size: 12px;
     }
 }
 select#rol {
@@ -348,6 +369,9 @@ select {
         transform: translateY(-400%);
     }
 }
+
+
+
 
 
 
